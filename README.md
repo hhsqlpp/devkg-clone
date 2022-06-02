@@ -15,3 +15,11 @@
   <li>NextJS</li>
   <li>Redux</li>
 </ul>
+
+
+<p>Author:</p>
+<ul>
+  <li><a href="https://github.com/BaktybekovBekzat">GitHub</a></li>
+  <li><a href="[https://github.com/BaktybekovBekzat](https://t.me/hhsqlpp)">Telegram</a></li>
+  <li><a href="mailto:bekzatbaktybekov208@gmail.com">Email</a></li>
+</ul>
