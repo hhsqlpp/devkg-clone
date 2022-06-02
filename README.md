@@ -16,7 +16,7 @@
   <li>Redux</li>
 </ul>
 
-
+<p><a href="https://devkg.com/ru" target="_blank">DevKG</a></p>
 <p>Author:</p>
 <ul>
   <li><a href="https://github.com/BaktybekovBekzat" target="_blank">GitHub</a></li>
