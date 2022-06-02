@@ -19,7 +19,7 @@
 
 <p>Author:</p>
 <ul>
-  <li><a href="https://github.com/BaktybekovBekzat">GitHub</a></li>
-  <li><a href="[https://github.com/BaktybekovBekzat](https://t.me/hhsqlpp)">Telegram</a></li>
-  <li><a href="mailto:bekzatbaktybekov208@gmail.com">Email</a></li>
+  <li><a href="https://github.com/BaktybekovBekzat" target="_blank">GitHub</a></li>
+  <li><a href="https://t.me/hhsqlpp" target="_blank">Telegram</a></li>
+  <li><a href="mailto:bekzatbaktybekov208@gmail.com" target="_blank">Email</a></li>
 </ul>
