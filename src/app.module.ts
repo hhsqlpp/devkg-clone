@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { getMongodbConfig } from './config/mongo.config';
 import { VacancyModule } from './vacancy/vacancy.module';
+import { EventModule } from './event/event.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { VacancyModule } from './vacancy/vacancy.module';
       useFactory: getMongodbConfig,
     }),
     VacancyModule,
+    EventModule,
   ],
   controllers: [],
   providers: [],
