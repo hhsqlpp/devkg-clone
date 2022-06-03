@@ -1,27 +1,53 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+	Body,
+	Controller,
+	Delete,
+	Get,
+	HttpCode,
+	Param,
+	Post,
+	Put,
+	Query,
+	UsePipes,
+	ValidationPipe,
+} from '@nestjs/common';
 import { CreateVacancyDto } from './dto/create-vacancy.dto';
+import { SetIsHotDto } from './dto/set-is-hot.dto';
 import { VacancyService } from './vacancy.service';
 
 @Controller('vacancies')
 export class VacancyController {
-  constructor(private vacancyService: VacancyService) {}
+	constructor(private vacancyService: VacancyService) {}
 
-  @Get()
-  async getAll(@Query('hot') hot: 'true' | 'false') {
-    if (hot == 'true') {
-      return this.vacancyService.getHotVacancies();
-    }
+	@Get()
+	@HttpCode(200)
+	async getAll(
+		@Query('count') count: number,
+		@Query('offset') offset: number,
+	) {
+		return this.vacancyService.getAll(count, offset);
+	}
 
-    return this.vacancyService.getAll();
-  }
+	@Post('create')
+	@HttpCode(201)
+	async create(@Body() dto: CreateVacancyDto) {
+		return this.vacancyService.create(dto);
+	}
 
-  @Post('create')
-  async create(@Body() dto: CreateVacancyDto) {
-    return this.vacancyService.create(dto);
-  }
+	@Get(':slug')
+	@HttpCode(200)
+	async getBySlug(@Param('slug') slug: string) {
+		return this.vacancyService.getBySlug(slug);
+	}
 
-  @Get(':slug')
-  async getBySlug(@Param('slug') slug: string) {
-    return this.vacancyService.getBySlug(slug);
-  }
+	@Delete(':slug')
+	async deleteBySlug(@Param('slug') slug: string) {
+		return this.vacancyService.delete(slug);
+	}
+
+	@Put('hot/:slug')
+	@UsePipes(new ValidationPipe())
+	async setIsHot(@Param('slug') slug: string, @Body() dto: SetIsHotDto) {
+		return this.vacancyService.setIsHot(slug, dto);
+	}
 }
