@@ -7,9 +7,12 @@ import {
 	Param,
 	Post,
 	Query,
+	UploadedFiles,
+	UseInterceptors,
 } from '@nestjs/common';
 import { EventService } from './event.service';
 import { CreateEventDto } from './dto/create-event.dto';
+import { FilesInterceptor } from '@nestjs/platform-express';
 
 @Controller('events')
 export class EventController {
@@ -34,8 +37,9 @@ export class EventController {
 	}
 
 	@Post('create')
+	@UseInterceptors(FilesInterceptor('image'))
 	@HttpCode(201)
-	async create(@Body() dto: CreateEventDto) {
-		return this.eventService.create(dto);
+	async create(@Body() dto: CreateEventDto, @UploadedFiles() files) {
+		return this.eventService.create(dto, files);
 	}
 }

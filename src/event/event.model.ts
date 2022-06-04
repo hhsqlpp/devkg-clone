@@ -25,5 +25,5 @@ export class EventModel extends TimeStamps {
 	description: string;
 
 	@prop()
-	event_banner: string;
+	event_banners: string[];
 }

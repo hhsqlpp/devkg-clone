@@ -18,7 +18,4 @@ export class CreateEventDto {
 
 	@IsString()
 	description: string;
-
-	@IsString()
-	event_banner: string;
 }

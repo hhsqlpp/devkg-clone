@@ -3,6 +3,7 @@ import { TypegooseModule } from 'nestjs-typegoose';
 import { EventController } from './event.controller';
 import { EventModel } from './event.model';
 import { EventService } from './event.service';
+import { FileService } from '../file/file.service';
 
 @Module({
 	imports: [
@@ -10,12 +11,12 @@ import { EventService } from './event.service';
 			{
 				typegooseClass: EventModel,
 				schemaOptions: {
-					collection: 'Event',
+					collection: 'events',
 				},
 			},
 		]),
 	],
 	controllers: [EventController],
-	providers: [EventService],
+	providers: [EventService, FileService],
 })
 export class EventModule {}
