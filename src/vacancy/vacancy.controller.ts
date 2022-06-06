@@ -22,10 +22,10 @@ export class VacancyController {
 	@Get()
 	@HttpCode(200)
 	async getAll(
-		@Query('count') count: number,
-		@Query('offset') offset: number,
+		@Query('page') page: number,
+		@Query('itemsPerPage') itemsPerPage: number,
 	) {
-		return this.vacancyService.getAll(count, offset);
+		return this.vacancyService.getAll(page, itemsPerPage);
 	}
 
 	@Post('create')

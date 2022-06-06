@@ -1,10 +1,10 @@
-import { IsDate, IsString } from '@nestjs/class-validator';
+import { IsString, IsDateString } from '@nestjs/class-validator';
 
 export class CreateEventDto {
 	@IsString()
 	event_name: string;
 
-	@IsDate()
+	@IsDateString()
 	date: Date;
 
 	@IsString()

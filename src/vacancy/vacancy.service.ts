@@ -32,13 +32,13 @@ export class VacancyService {
 	}
 
 	async getAll(
-		count: number = ITEMS_PER_PAGE,
-		offset: number = 0,
+		page: number = 1,
+		itemsPerPage: number = ITEMS_PER_PAGE,
 	): Promise<VacancyModel[]> {
 		const vacancies = await this.vacancyModel
 			.find()
-			.skip(Number(offset))
-			.limit(count);
+			.skip(page > 1 ? (page - 1) * itemsPerPage : 0)
+			.limit(itemsPerPage);
 
 		return vacancies;
 	}

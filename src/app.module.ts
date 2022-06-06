@@ -5,6 +5,7 @@ import { getMongodbConfig } from './config/mongo.config';
 import { VacancyModule } from './vacancy/vacancy.module';
 import { EventModule } from './event/event.module';
 import { FileModule } from './file/file.module';
+import { VideoModule } from './video/video.module';
 
 @Module({
 	imports: [
@@ -17,6 +18,7 @@ import { FileModule } from './file/file.module';
 		VacancyModule,
 		EventModule,
 		FileModule,
+		VideoModule,
 	],
 	controllers: [],
 	providers: [],

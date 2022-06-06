@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from 'nestjs-typegoose';
 import { EventModel } from './event.model';
 import { ReturnModelType } from '@typegoose/typegoose';
@@ -16,18 +16,29 @@ export class EventService {
 	) {}
 
 	async getAll(
-		count: number = ITEMS_PER_PAGE,
-		offset: number = 0,
+		page: number = 1,
+		itemsPerPage: number = ITEMS_PER_PAGE,
 	): Promise<EventModel[]> {
-		return await this.eventModel.find().skip(offset).limit(count);
+		return await this.eventModel
+			.find()
+			.skip(page > 1 ? (page - 1) * itemsPerPage : 0)
+			.limit(itemsPerPage);
 	}
 
 	async getBySlug(slug: string): Promise<EventModel> {
-		return await this.eventModel.findOne({ slug });
+		const event = await this.eventModel.findOne({ slug });
+		if (!event)
+			throw new NotFoundException('Мероприятие с таким slug не найдено');
+
+		return event;
 	}
 
 	async delete(slug: string): Promise<EventModel> {
-		return await this.eventModel.findOneAndDelete({ slug });
+		const event = await this.eventModel.findOneAndDelete({ slug });
+		if (!event)
+			throw new NotFoundException('Мероприятие с таким slug не найдено');
+
+		return event;
 	}
 
 	async create(dto: CreateEventDto, files): Promise<EventModel> {
