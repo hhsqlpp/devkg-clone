@@ -4,6 +4,7 @@ import { VacancyModel } from '../vacancy/vacancy.model';
 import { VideoModel } from '../video/video.model';
 import { Base, TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
 import { SocialItem } from './company.interface';
+import mongoose from 'mongoose';
 
 export interface CompanyModel extends Base {}
 export class CompanyModel extends TimeStamps {
@@ -19,14 +20,23 @@ export class CompanyModel extends TimeStamps {
 	@prop()
 	description: string;
 
-	@prop()
-	vacancies: VacancyModel[];
+	@prop({
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'VacancyModel',
+	})
+	vacancies: mongoose.Types.ObjectId[];
 
-	@prop()
-	events: EventModel[];
+	@prop({
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'EventModel',
+	})
+	events: mongoose.Types.ObjectId[];
 
-	@prop()
-	videos: VideoModel[];
+	@prop({
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'VideoModel',
+	})
+	videos: mongoose.Types.ObjectId[];
 
 	@prop()
 	socials: SocialItem[];

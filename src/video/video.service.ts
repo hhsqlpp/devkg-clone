@@ -65,6 +65,9 @@ export class VideoService {
 			},
 		);
 
+		company.videos.push(video._id);
+		this.companyService.editCompany(company, company.slug);
+
 		return await video.save();
 	}
 }

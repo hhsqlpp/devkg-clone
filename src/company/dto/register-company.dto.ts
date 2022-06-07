@@ -11,5 +11,5 @@ export class RegisterCompanyDto {
 	@IsString()
 	web_site: string;
 
-	socials: SocialItem[];
+	socials?: SocialItem[];
 }

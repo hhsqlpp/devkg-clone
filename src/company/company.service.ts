@@ -32,7 +32,7 @@ export class CompanyService {
 		itemsPerPage: number = ITEMS_PER_PAGE,
 	): Promise<CompanyModel[]> {
 		const companies = await this.companyModel
-			.find()
+			.find({})
 			.skip(page > 1 ? (page - 1) * itemsPerPage : 0)
 			.limit(itemsPerPage);
 
@@ -42,7 +42,9 @@ export class CompanyService {
 	async getBySlug(slug: string): Promise<CompanyModel> {
 		const company = await this.companyModel
 			.findOne({ slug })
-			.populate('vacancies', 'videos', 'events');
+			.populate('vacancies')
+			.populate('events')
+			.populate('videos');
 		if (!company)
 			throw new NotFoundException('Компания с таким slug не найдено');
 
@@ -69,6 +71,14 @@ export class CompanyService {
 
 	async deleteBySlug(slug: string): Promise<CompanyModel> {
 		const company = await this.companyModel.findOneAndDelete({ slug });
+		if (!company)
+			throw new NotFoundException('Компания с таким slug не найдено');
+
+		return company;
+	}
+
+	async editCompany(dto: CompanyModel, slug: string): Promise<CompanyModel> {
+		const company = await this.companyModel.findOneAndUpdate({ slug }, dto);
 		if (!company)
 			throw new NotFoundException('Компания с таким slug не найдено');
 

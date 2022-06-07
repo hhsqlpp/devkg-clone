@@ -68,6 +68,9 @@ export class EventService {
 			trim: true,
 		});
 
+		company.events.push(event._id);
+		this.companyService.editCompany(company, company.slug);
+
 		return await event.save();
 	}
 }

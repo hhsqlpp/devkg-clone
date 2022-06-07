@@ -40,6 +40,9 @@ export class VacancyService {
 			},
 		);
 
+		company.vacancies.push(vacancy._id);
+		this.companyService.editCompany(company, company.slug);
+
 		return vacancy.save();
 	}
 
