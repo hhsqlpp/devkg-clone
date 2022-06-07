@@ -4,33 +4,33 @@ import { Salary, WorkType } from './vacancy.interface';
 
 export interface VacancyModel extends Base {}
 export class VacancyModel extends TimeStamps {
-  @prop()
-  position: string;
+	@prop()
+	position: string;
 
-  @prop({ type: String })
-  type: WorkType = 'Офис/Бишкек';
+	@prop({ type: String })
+	type: WorkType = 'Офис/Бишкек';
 
-  @prop()
-  salary: Salary;
+	@prop()
+	salary: Salary;
 
-  @prop()
-  description: string;
+	@prop()
+	description: string;
 
-  @prop()
-  telegram?: string;
+	@prop()
+	telegram?: string;
 
-  @prop()
-  email?: string;
+	@prop()
+	email?: string;
 
-  @prop()
-  company_name: string;
+	@prop()
+	company_name: string;
 
-  @prop()
-  company_slug: string;
+	@prop()
+	company_slug: string;
 
-  @prop()
-  slug: string;
+	@prop()
+	slug: string;
 
-  @prop()
-  is_hot: boolean = false;
+	@prop()
+	is_hot: boolean = false;
 }

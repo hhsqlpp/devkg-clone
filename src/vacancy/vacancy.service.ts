@@ -6,16 +6,28 @@ import { VacancyModel } from './vacancy.model';
 import slugify from 'slugify';
 import { SetIsHotDto } from './dto/set-is-hot.dto';
 import { ITEMS_PER_PAGE } from './vacancy.constant';
+import { CompanyService } from '../company/company.service';
 
 @Injectable()
 export class VacancyService {
 	constructor(
 		@InjectModel(VacancyModel)
 		private vacancyModel: ReturnModelType<typeof VacancyModel>,
+		private companyService: CompanyService,
 	) {}
 
 	async create(dto: CreateVacancyDto): Promise<VacancyModel> {
-		const vacancy = await this.vacancyModel.create({ ...dto });
+		const company = await this.companyService.getByName(dto.company_name);
+		if (!company)
+			throw new NotFoundException(
+				'Компания с таким названием не существует',
+			);
+
+		const vacancy = await this.vacancyModel.create({
+			...dto,
+			company_name: company.name,
+			company_slug: company.slug,
+		});
 		vacancy.slug = slugify(
 			`${dto.position} ${dto.company_name} ${vacancy._id}`,
 			{

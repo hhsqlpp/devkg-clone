@@ -18,4 +18,7 @@ export class CreateEventDto {
 
 	@IsString()
 	description: string;
+
+	@IsString()
+	company_name: string;
 }

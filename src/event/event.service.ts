@@ -6,6 +6,7 @@ import { ITEMS_PER_PAGE } from './event.constant';
 import { CreateEventDto } from './dto/create-event.dto';
 import slugify from 'slugify';
 import { FileService } from 'src/file/file.service';
+import { CompanyService } from 'src/company/company.service';
 
 @Injectable()
 export class EventService {
@@ -13,6 +14,7 @@ export class EventService {
 		@InjectModel(EventModel)
 		private eventModel: ReturnModelType<typeof EventModel>,
 		private fileService: FileService,
+		private companyService: CompanyService,
 	) {}
 
 	async getAll(
@@ -42,9 +44,20 @@ export class EventService {
 	}
 
 	async create(dto: CreateEventDto, files): Promise<EventModel> {
+		const company = await this.companyService.getByName(dto.company_name);
+		if (!company)
+			throw new NotFoundException(
+				'Компания с таким названием не существует',
+			);
+
 		const images = await this.fileService.saveFiles(files, 'events');
 
-		const event = new this.eventModel({ ...dto, event_banners: images });
+		const event = new this.eventModel({
+			...dto,
+			event_banners: images,
+			company_name: company.name,
+			company_slug: company.slug,
+		});
 
 		event.slug = slugify(`${dto.event_name} ${dto.caller} ${event._id}`, {
 			replacement: '-',

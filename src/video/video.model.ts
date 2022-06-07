@@ -5,16 +5,22 @@ export interface VideoModel extends Base {}
 export class VideoModel extends TimeStamps {
 	@prop()
 	slug: string;
+
 	@prop()
 	video_name: string;
+
 	@prop()
 	date: Date;
+
 	@prop()
-	author: string;
+	company_name: string;
+
 	@prop()
-	author_link: string;
+	company_slug: string;
+
 	@prop()
 	video_link: string;
+
 	@prop()
 	description: string;
 }

@@ -13,7 +13,10 @@ export class EventModel extends TimeStamps {
 	date: Date;
 
 	@prop()
-	caller: string;
+	company_name: string;
+
+	@prop()
+	company_slug: string;
 
 	@prop()
 	location: string;

@@ -6,6 +6,7 @@ import { VacancyModule } from './vacancy/vacancy.module';
 import { EventModule } from './event/event.module';
 import { FileModule } from './file/file.module';
 import { VideoModule } from './video/video.module';
+import { CompanyModule } from './company/company.module';
 
 @Module({
 	imports: [
@@ -19,6 +20,7 @@ import { VideoModule } from './video/video.module';
 		EventModule,
 		FileModule,
 		VideoModule,
+		CompanyModule,
 	],
 	controllers: [],
 	providers: [],

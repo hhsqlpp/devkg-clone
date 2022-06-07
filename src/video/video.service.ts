@@ -5,10 +5,12 @@ import slugify from 'slugify';
 import { CreateVideoDto } from './dto/create-video.dto';
 import { VideoModel } from './video.model';
 import { ITEMS_PER_PAGE } from './video.constants';
+import { CompanyService } from '../company/company.service';
 
 @Injectable()
 export class VideoService {
 	constructor(
+		private companyService: CompanyService,
 		@InjectModel(VideoModel)
 		private videoModel: ReturnModelType<typeof VideoModel>,
 	) {}
@@ -40,15 +42,28 @@ export class VideoService {
 	}
 
 	async create(dto: CreateVideoDto): Promise<VideoModel> {
-		const video = await this.videoModel.create({ ...dto });
-		video.slug = slugify(`${dto.video_name} ${dto.author} ${video._id}`, {
-			replacement: '-',
-			remove: undefined,
-			lower: true,
-			strict: false,
-			locale: 'vi',
-			trim: true,
+		const company = await this.companyService.getByName(dto.company_name);
+		if (!company)
+			throw new NotFoundException(
+				'Компания с таким названием не существует',
+			);
+
+		const video = await this.videoModel.create({
+			...dto,
+			company_name: company.name,
+			company_slug: company.slug,
 		});
+		video.slug = slugify(
+			`${dto.video_name} ${video.company_name} ${video._id}`,
+			{
+				replacement: '-',
+				remove: undefined,
+				lower: true,
+				strict: false,
+				locale: 'vi',
+				trim: true,
+			},
+		);
 
 		return await video.save();
 	}

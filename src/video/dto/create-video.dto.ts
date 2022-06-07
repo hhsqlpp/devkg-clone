@@ -8,10 +8,7 @@ export class CreateVideoDto {
 	date: Date;
 
 	@IsString()
-	author: string;
-
-	@IsString()
-	author_link: string;
+	company_name: string;
 
 	@IsString()
 	video_link: string;
