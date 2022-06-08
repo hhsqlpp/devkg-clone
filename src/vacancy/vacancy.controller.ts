@@ -8,9 +8,11 @@ import {
 	Post,
 	Put,
 	Query,
+	UseGuards,
 	UsePipes,
 	ValidationPipe,
 } from '@nestjs/common';
+import { Auth } from 'src/auth/guards/auth.guard';
 import { CreateVacancyDto } from './dto/create-vacancy.dto';
 import { SetIsHotDto } from './dto/set-is-hot.dto';
 import { VacancyService } from './vacancy.service';
@@ -21,6 +23,7 @@ export class VacancyController {
 
 	@Get()
 	@HttpCode(200)
+	@UseGuards(Auth)
 	async getAll(
 		@Query('page') page: number,
 		@Query('itemsPerPage') itemsPerPage: number,

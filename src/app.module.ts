@@ -7,6 +7,7 @@ import { EventModule } from './event/event.module';
 import { FileModule } from './file/file.module';
 import { VideoModule } from './video/video.module';
 import { CompanyModule } from './company/company.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
 	imports: [
@@ -21,6 +22,7 @@ import { CompanyModule } from './company/company.module';
 		FileModule,
 		VideoModule,
 		CompanyModule,
+		AuthModule,
 	],
 	controllers: [],
 	providers: [],

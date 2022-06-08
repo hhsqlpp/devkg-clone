@@ -1,7 +1,4 @@
 import { prop } from '@typegoose/typegoose';
-import { EventModel } from '../event/event.model';
-import { VacancyModel } from '../vacancy/vacancy.model';
-import { VideoModel } from '../video/video.model';
 import { Base, TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
 import { SocialItem } from './company.interface';
 import mongoose from 'mongoose';
