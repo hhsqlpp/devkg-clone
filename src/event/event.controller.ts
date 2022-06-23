@@ -16,7 +16,9 @@ import { EventService } from './event.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { EventModel } from './event.model';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Мероприятия')
 @Controller('events')
 export class EventController {
 	constructor(private eventService: EventService) {}

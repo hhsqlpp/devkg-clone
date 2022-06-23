@@ -13,7 +13,9 @@ import {
 import { VideoService } from './video.service';
 import { CreateVideoDto } from './dto/create-video.dto';
 import { VideoModel } from './video.model';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Видео')
 @Controller('videos')
 export class VideoController {
 	constructor(private videoService: VideoService) {}

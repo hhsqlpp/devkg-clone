@@ -1,12 +1,12 @@
 import { IsString, IsEmail, IsBoolean } from '@nestjs/class-validator';
-import { WorkType, Salary } from '../vacancy.interface';
+import { Salary, WorkEnum } from '../vacancy.interface';
 
 export class CreateVacancyDto {
 	@IsString()
 	position: string;
 
 	@IsString()
-	type: WorkType;
+	type: WorkEnum;
 
 	salary: Salary;
 
