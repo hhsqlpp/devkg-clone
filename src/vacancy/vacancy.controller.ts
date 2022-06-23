@@ -23,7 +23,6 @@ export class VacancyController {
 
 	@Get()
 	@HttpCode(200)
-	@UseGuards(Auth)
 	async getAll(
 		@Query('page') page: number,
 		@Query('itemsPerPage') itemsPerPage: number,
@@ -32,6 +31,7 @@ export class VacancyController {
 	}
 
 	@Post('create')
+	@UseGuards(Auth)
 	@HttpCode(201)
 	async create(@Body() dto: CreateVacancyDto) {
 		return this.vacancyService.create(dto);
@@ -44,6 +44,7 @@ export class VacancyController {
 	}
 
 	@Delete(':slug')
+	@UseGuards(Auth)
 	async deleteBySlug(@Param('slug') slug: string) {
 		return this.vacancyService.delete(slug);
 	}
