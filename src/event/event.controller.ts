@@ -8,6 +8,7 @@ import {
 	Post,
 	Query,
 	UploadedFiles,
+	UseGuards,
 	UseInterceptors,
 	UsePipes,
 	ValidationPipe,
@@ -17,6 +18,7 @@ import { CreateEventDto } from './dto/create-event.dto';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { EventModel } from './event.model';
 import { ApiTags } from '@nestjs/swagger';
+import { Auth } from 'src/auth/guards/auth.guard';
 
 @ApiTags('Мероприятия')
 @Controller('events')
@@ -37,11 +39,13 @@ export class EventController {
 	}
 
 	@Delete(':slug')
+	@UseGuards(Auth)
 	async delete(@Param('slug') slug: string): Promise<EventModel> {
 		return this.eventService.delete(slug);
 	}
 
 	@Post('create')
+	@UseGuards(Auth)
 	@UseInterceptors(FilesInterceptor('image'))
 	@HttpCode(201)
 	@UsePipes(new ValidationPipe())

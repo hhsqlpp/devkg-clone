@@ -7,6 +7,7 @@ import {
 	Param,
 	Post,
 	Query,
+	UseGuards,
 	UsePipes,
 	ValidationPipe,
 } from '@nestjs/common';
@@ -17,6 +18,7 @@ import {
 	ApiTags,
 } from '@nestjs/swagger';
 import { CompanyModel } from './company.model';
+import { Auth } from 'src/auth/guards/auth.guard';
 import { CompanyService } from './company.service';
 import { RegisterCompanyDto } from './dto/register-company.dto';
 
@@ -42,6 +44,7 @@ export class CompanyController {
 
 	@Delete(':slug')
 	@ApiResponse({ type: CompanyModel, status: 204 })
+	@UseGuards(Auth)
 	async deleteCompanyBySlug(@Param('slug') slug: string) {
 		return this.companyService.deleteBySlug(slug);
 	}
@@ -53,6 +56,7 @@ export class CompanyController {
 		type: CompanyModel,
 	})
 	@HttpCode(201)
+	@UseGuards(Auth)
 	@UsePipes(new ValidationPipe())
 	async registerCompany(@Body() dto: RegisterCompanyDto) {
 		return this.companyService.registerCompany(dto);
