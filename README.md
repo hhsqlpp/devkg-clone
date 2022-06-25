@@ -23,3 +23,6 @@
   <li><a href="https://t.me/hhsqlpp" target="_blank">Telegram</a></li>
   <li><a href="mailto:bekzatbaktybekov208@gmail.com" target="_blank">Email</a></li>
 </ul>
+
+<p>API Documentation</p>
+<a href="https://devkg-api.herokuapp.com/api/" target="_blank">Swagger</a>
