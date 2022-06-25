@@ -3,6 +3,7 @@ import { CompanyController } from './company.controller';
 import { CompanyService } from './company.service';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { CompanyModel } from './company.model';
+import { FileService } from 'src/file/file.service';
 
 @Module({
 	imports: [
@@ -16,7 +17,7 @@ import { CompanyModel } from './company.model';
 		]),
 	],
 	controllers: [CompanyController],
-	providers: [CompanyService],
+	providers: [CompanyService, FileService],
 	exports: [CompanyService],
 })
 export class CompanyModule {}

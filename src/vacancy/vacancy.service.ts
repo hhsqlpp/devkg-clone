@@ -27,6 +27,7 @@ export class VacancyService {
 			...dto,
 			company_name: company.name,
 			company_slug: company.slug,
+			company_logo: company.logo,
 		});
 		vacancy.slug = slugify(
 			`${dto.position} ${dto.company_name} ${vacancy._id}`,

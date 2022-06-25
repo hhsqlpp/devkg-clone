@@ -5,16 +5,29 @@ import { ReturnModelType } from '@typegoose/typegoose';
 import { RegisterCompanyDto } from './dto/register-company.dto';
 import slugify from 'slugify';
 import { ITEMS_PER_PAGE } from './company.constants';
+import { FileService } from 'src/file/file.service';
 
 @Injectable()
 export class CompanyService {
 	constructor(
 		@InjectModel(CompanyModel)
 		private companyModel: ReturnModelType<typeof CompanyModel>,
+		private fileService: FileService,
 	) {}
 
-	async registerCompany(dto: RegisterCompanyDto): Promise<CompanyModel> {
-		const newCompany = await this.companyModel.create({ ...dto });
+	async registerCompany(
+		dto: RegisterCompanyDto,
+		images,
+	): Promise<CompanyModel> {
+		const logo = await this.fileService.saveFiles(images, 'companies');
+
+		if (!logo)
+			throw new HttpException('Ошибка при загрузке изображения', 500);
+
+		const newCompany = await this.companyModel.create({
+			...dto,
+			logo: logo,
+		});
 		newCompany.slug = slugify(`${dto.name} ${newCompany._id}`, {
 			replacement: '-',
 			remove: undefined,

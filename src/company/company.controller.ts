@@ -10,6 +10,8 @@ import {
 	UseGuards,
 	UsePipes,
 	ValidationPipe,
+	UseInterceptors,
+	UploadedFiles,
 } from '@nestjs/common';
 import {
 	ApiBody,
@@ -21,6 +23,7 @@ import { CompanyModel } from './company.model';
 import { Auth } from 'src/auth/guards/auth.guard';
 import { CompanyService } from './company.service';
 import { RegisterCompanyDto } from './dto/register-company.dto';
+import { FilesInterceptor } from '@nestjs/platform-express';
 
 @ApiTags('Компании')
 @Controller('companies')
@@ -58,7 +61,11 @@ export class CompanyController {
 	@HttpCode(201)
 	@UseGuards(Auth)
 	@UsePipes(new ValidationPipe())
-	async registerCompany(@Body() dto: RegisterCompanyDto) {
-		return this.companyService.registerCompany(dto);
+	@UseInterceptors(FilesInterceptor('image'))
+	async registerCompany(
+		@Body() dto: RegisterCompanyDto,
+		@UploadedFiles() images,
+	) {
+		return this.companyService.registerCompany(dto, images);
 	}
 }

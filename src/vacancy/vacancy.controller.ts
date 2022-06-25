@@ -12,7 +12,7 @@ import {
 	UsePipes,
 	ValidationPipe,
 } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Auth } from 'src/auth/guards/auth.guard';
 import { CreateVacancyDto } from './dto/create-vacancy.dto';
 import { SetIsHotDto } from './dto/set-is-hot.dto';
@@ -36,6 +36,7 @@ export class VacancyController {
 	) {
 		return this.vacancyService.getAll(page, itemsPerPage);
 	}
+
 	@ApiResponse({
 		type: VacancyModel,
 		status: 201,
@@ -43,6 +44,9 @@ export class VacancyController {
 	@Post('create')
 	@UseGuards(Auth)
 	@HttpCode(201)
+	@ApiBody({
+		type: CreateVacancyDto,
+	})
 	async create(@Body() dto: CreateVacancyDto) {
 		return this.vacancyService.create(dto);
 	}
@@ -73,6 +77,9 @@ export class VacancyController {
 		status: 200,
 	})
 	@UsePipes(new ValidationPipe())
+	@ApiBody({
+		type: SetIsHotDto,
+	})
 	async setIsHot(@Param('slug') slug: string, @Body() dto: SetIsHotDto) {
 		return this.vacancyService.setIsHot(slug, dto);
 	}

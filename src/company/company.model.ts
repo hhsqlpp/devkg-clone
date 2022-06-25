@@ -3,6 +3,7 @@ import { Base, TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
 import { SocialItem } from './company.interface';
 import mongoose from 'mongoose';
 import { ApiProperty } from '@nestjs/swagger';
+import { FileResponse } from 'src/file/file.interface';
 
 export interface CompanyModel extends Base {}
 export class CompanyModel extends TimeStamps {
@@ -17,6 +18,10 @@ export class CompanyModel extends TimeStamps {
 	@ApiProperty({ type: String })
 	@prop()
 	web_site: string;
+
+	@ApiProperty()
+	@prop()
+	logo: string[];
 
 	@ApiProperty({ type: String })
 	@prop()
